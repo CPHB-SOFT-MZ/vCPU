@@ -127,7 +127,7 @@ public class Machine {
         //HALT
         else if(instr == 0b0000_1111){
             System.out.println("Halt?");
-            while(true){}
+            System.exit(0);
         }
         //PUSH r: [--SP] ← r; IP++
         //0001 000r
@@ -208,6 +208,10 @@ public class Machine {
         else if((instr & 0b1100_0000) == 0b0100_0000){
             System.out.println("MOV v r");
             int v = ((instr & 0b0011_1110) >> 1);
+            if(((instr & 0b0010_0000)) == 0b0010_0000){
+                v = - ((instr & 0b0001_1110) >> 1);
+            }
+            
             System.out.println("v = " + v);
             int r = (instr & 0b0000_0001);
             if (r == cpu.A) {
